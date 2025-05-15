@@ -2,22 +2,41 @@
 
 ## Infrastructure Design
 
-```mermaid
-graph TD
-    User["User's Computer"] -->|1. Types www.foobar.com| DNS["DNS System"]
-    DNS -->|2. Resolves to 8.8.8.8| User
-    User -->|3. HTTP Request| WebServer["Web Server (Nginx)"]
-    
-    subgraph "Server (IP: 8.8.8.8)"
-        WebServer -->|4. Forward Request| AppServer["Application Server"]
-        AppServer -->|5. Execute| CodeBase["Application Files (Code Base)"]
-        AppServer <-->|6. Query/Store Data| Database["Database (MySQL)"]
-        CodeBase --> AppServer
-        AppServer -->|7. Return Results| WebServer
-    end
-    
-    WebServer -->|8. HTTP Response| User
 ```
+User's Computer <---> DNS System
+       |
+       v
++-----------------------------------+
+|        Server (IP: 8.8.8.8)       |
+|                                   |
+| +-------------------------------+ |
+| |      Web Server (Nginx)       | |
+| +---------------+---------------+ |
+|                 |                 |
+| +---------------v---------------+ |
+| |     Application Server        | |
+| +---------------+---------------+ |
+|                 |                 |
+| +---------------v---------------+ |
+| |   Application Files (Code)    | |
+| +---------------+---------------+ |
+|                 |                 |
+| +---------------v---------------+ |
+| |      Database (MySQL)         | |
+| +-------------------------------+ |
+|                                   |
++-----------------------------------+
+```
+
+**Request Flow:**
+1. User types "www.foobar.com" in browser
+2. DNS resolves www.foobar.com to IP address 8.8.8.8
+3. Browser sends HTTP request to server at 8.8.8.8
+4. Web server (Nginx) receives request
+5. Application server processes the request using codebase
+6. Database provides necessary data
+7. Response flows back through application server and web server
+8. User receives the webpage
 
 ## Infrastructure Explanation
 
