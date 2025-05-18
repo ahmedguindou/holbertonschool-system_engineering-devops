@@ -11,23 +11,21 @@ A user wants to access `www.foobar.com`. This time, the infrastructure is distri
 ```mermaid
 graph TD
     User[User - Browser]
-    DNS[DNS - www.foobar.com -> Load Balancer IP]
+    DNS[DNS - www.foobar.com → Load Balancer IP]
     LB[Load Balancer - HAProxy]
 
     subgraph Web Server Cluster
-        S1[Web Server 1 - Nginx + App + DB (Primary)]
-        S2[Web Server 2 - Nginx + App + DB (Replica)]
+        S1[Web Server 1 - Nginx, App, Primary DB]
+        S2[Web Server 2 - Nginx, App, Replica DB]
     end
-
-    DBP[Primary DB]
-    DBR[Replica DB]
 
     User --> DNS --> LB
     LB --> S1
     LB --> S2
-    S1 --> DBP
-    S2 --> DBR
+    S1 --> DBPrimary[Primary DB]
+    S2 --> DBReplica[Replica DB]
 ```
+
 
 ---
 
