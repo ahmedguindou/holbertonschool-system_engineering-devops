@@ -22,9 +22,9 @@ A user opens a browser and wants to access `www.foobar.com`.
 
 ```mermaid
 graph TD
-    User([User - Browser])
-    DNS[DNS - www.foobar.com -> 8.8.8.8]
-    Server[Server (8.8.8.8)]
+    User[User - Browser]
+    DNS[DNS: www.foobar.com -> 8.8.8.8]
+    Server[Server - IP: 8.8.8.8]
     Nginx[Nginx - Web Server]
     App[Application Server]
     DB[MySQL Database]
@@ -38,6 +38,7 @@ graph TD
     App --> Nginx
     Nginx --> User
 ```
+
 
 ---
 
