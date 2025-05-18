@@ -13,7 +13,7 @@ We want to host the website `www.foobar.com` on a three-server infrastructure. T
 ```mermaid
 graph TD
     User[User - HTTPS Browser]
-    DNS[DNS - www.foobar.com to Load Balancer IP]
+    DNS[DNS - wwwfoobar.com to Load Balancer IP]
     FW1[Firewall 1 - LB Protection]
     FW2[Firewall 2 - Web Servers Protection]
     FW3[Firewall 3 - DB Servers Protection]
