@@ -8,29 +8,31 @@ We want to host the website `www.foobar.com` on a three-server infrastructure. T
 
 ## 🗺️ Infrastructure Diagram 
 
+
+
 ```mermaid
 graph TD
     User[User - HTTPS Browser]
-    DNS[DNS - wwwfoobar.com → Load Balancer IP]
-    FW1[Firewall 1 - Protects Load Balancer]
-    FW2[Firewall 2 - Protects Web Servers]
-    FW3[Firewall 3 - Protects DB Servers]
-    LB[Load Balancer - HAProxy + SSL Termination]
-    Monitoring[Monitoring Server (e.g., SumoLogic)]
+    DNS[DNS - www.foobar.com to Load Balancer IP]
+    FW1[Firewall 1 - LB Protection]
+    FW2[Firewall 2 - Web Servers Protection]
+    FW3[Firewall 3 - DB Servers Protection]
+    LB[Load Balancer - HAProxy with SSL Termination]
+    Monitoring[Monitoring Server - SumoLogic]
 
-    subgraph Server 1
+    subgraph Server1
         S1Web[Nginx + App]
         S1DB[MySQL Primary]
         S1Agent[Monitoring Agent]
     end
 
-    subgraph Server 2
+    subgraph Server2
         S2Web[Nginx + App]
         S2DB[MySQL Replica]
         S2Agent[Monitoring Agent]
     end
 
-    subgraph Server 3
+    subgraph Server3
         S3Web[Nginx + App]
         S3DB[MySQL Replica]
         S3Agent[Monitoring Agent]
