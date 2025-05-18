@@ -18,7 +18,7 @@ A user opens a browser and wants to access `www.foobar.com`.
 
 ---
 
-## 🖥️ Infrastructure Diagram (Mermaid.js)
+## 🖥️ Infrastructure Diagram
 
 ```mermaid
 graph TD

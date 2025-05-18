@@ -6,7 +6,7 @@ A user wants to access `www.foobar.com`. In this setup, the infrastructure uses 
 
 ---
 
-## 🗺️ Infrastructure Diagram (Mermaid.js - GitHub Compatible)
+## 🗺️ Infrastructure Diagram 
 
 ```mermaid
 graph TD
