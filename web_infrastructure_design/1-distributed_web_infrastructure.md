@@ -2,21 +2,21 @@
 
 ## 🌐 Scenario
 
-A user wants to access `www.foobar.com`. This time, the infrastructure is distributed across **three servers** to improve performance and availability.
+A user wants to access `www.foobar.com`. In this setup, the infrastructure uses three servers to ensure better reliability, scalability, and performance.
 
 ---
 
-## 🗺️ Infrastructure Diagram (Mermaid.js)
+## 🗺️ Infrastructure Diagram (Mermaid.js - GitHub Compatible)
 
 ```mermaid
 graph TD
     User[User - Browser]
-    DNS[DNS - www.foobar.com → Load Balancer IP]
+    DNS[DNS - wwwfoobar.com → Load Balancer IP]
     LB[Load Balancer - HAProxy]
 
     subgraph Web Server Cluster
-        S1[Web Server 1 - Nginx, App, Primary DB]
-        S2[Web Server 2 - Nginx, App, Replica DB]
+        S1[Server 1 - Nginx, App, Primary DB]
+        S2[Server 2 - Nginx, App, Replica DB]
     end
 
     User --> DNS --> LB
@@ -25,7 +25,6 @@ graph TD
     S1 --> DBPrimary[Primary DB]
     S2 --> DBReplica[Replica DB]
 ```
-
 
 ---
 
@@ -45,35 +44,35 @@ graph TD
 
 - **Tool**: HAProxy
 - **Algorithm**: *Round Robin*
-  - Distributes requests in order: first to server 1, then server 2, then repeats.
+  - Distributes requests in a circular sequence: Server 1, Server 2, Server 1, etc.
 - **Setup**: *Active-Active*
   - Both servers are actively handling requests at the same time.
   - **Active-Active vs. Active-Passive**:
     - **Active-Active**: All servers handle traffic simultaneously.
-    - **Active-Passive**: One server handles traffic, the other waits for failover.
+    - **Active-Passive**: One server handles traffic, the other waits to take over if the first fails.
 
 ---
 
-## 🗃️ Primary-Replica Database (Master-Slave)
+## 🗃️ Primary-Replica Database
 
 ### How it works:
-- The **Primary** database (on Server 1) handles all **writes** and **updates**.
-- The **Replica** database (on Server 2) receives **read-only copies** of the data.
-- Replication is usually **asynchronous**, meaning there's a delay between writing to Primary and the Replica getting updated.
+- The **Primary** database (on Server 1) handles all **write** operations.
+- The **Replica** (on Server 2) receives synchronized **read-only** copies of the data.
+- Replication is usually **asynchronous**, so there's a slight delay.
 
-### Application-side Difference:
-- Writes (insert/update/delete) are always directed to the **Primary** DB.
-- Reads can be served by either the Primary or Replica to improve performance.
+### From the App’s Perspective:
+- **Writes** → go to the **Primary**
+- **Reads** → can be handled by either the **Primary** or **Replica** to improve speed and load distribution.
 
 ---
 
 ## ⚠️ Infrastructure Issues
 
-| Category        | Issues                                                                 |
-|----------------|-------------------------------------------------------------------------|
-| **SPOF**        | Load Balancer is a **Single Point of Failure** if not replicated.      |
-| **Security**    | No **firewall** or **HTTPS**, meaning data and servers are vulnerable. |
-| **Monitoring**  | No monitoring or alerting system to detect failures or spikes.         |
+| Issue Type    | Explanation                                                                 |
+|---------------|------------------------------------------------------------------------------|
+| **SPOF**       | The Load Balancer itself is a Single Point of Failure (SPOF) unless replicated. |
+| **Security**   | No firewall, no HTTPS → vulnerable to attacks and data leakage.            |
+| **Monitoring** | No monitoring tools → no alerts or diagnostics for system failures.        |
 
 ---
 
